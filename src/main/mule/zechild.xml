@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="zechildFlow" doc:id="827ae529-9716-4877-981e-c8c4cbb60171" >
+		<http:listener doc:name="Listener" doc:id="2370bf00-dd5a-4dc0-b22e-285fd4a1ae13" config-ref="HTTP_Listener_config" path="/child"/>
+		<db:select doc:name="Select" doc:id="2decd812-1a46-4cca-809b-8d28a9c1ed8a" config-ref="Database_Config">
+			<db:sql ><![CDATA[select * from ask]]></db:sql>
+		</db:select>
+		<ee:transform doc:name="Transform Message" doc:id="deb35b16-55c2-49fd-8e96-b593a0713fb6" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
